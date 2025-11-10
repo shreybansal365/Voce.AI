@@ -1,0 +1,157 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-inter: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  --font-outfit: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  --font-sans: var(--font-inter);
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  
+  /* Master Accent Colors */
+  --color-brand: oklch(0.65 0.22 285); /* Electric Lavender */
+  --color-brand-glow: oklch(0.65 0.22 285 / 15%);
+}
+
+:root {
+  --background: oklch(0.12 0.03 285); /* Deep Midnight Purple */
+  --foreground: oklch(0.98 0.01 285);
+  
+  --card: oklch(0.16 0.04 285 / 60%); 
+  --card-foreground: oklch(0.98 0.01 285);
+  
+  --popover: oklch(0.14 0.04 285);
+  --popover-foreground: oklch(0.98 0.01 285);
+  
+  --primary: oklch(0.65 0.22 285); /* Electric Lavender */
+  --primary-foreground: oklch(1 0 0);
+  
+  --secondary: oklch(0.25 0.06 285);
+  --secondary-foreground: oklch(0.98 0.01 285);
+  
+  --muted: oklch(0.2 0.05 285);
+  --muted-foreground: oklch(0.6 0.03 285);
+  
+  --accent: oklch(0.35 0.12 285 / 40%);
+  --accent-foreground: oklch(0.98 0.01 285);
+  
+  --destructive: oklch(0.55 0.2 25);
+  --destructive-foreground: oklch(0.98 0.01 20);
+  
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 6%);
+  --ring: oklch(0.65 0.22 285);
+  
+  --radius: 1.25rem;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50 selection:bg-primary/30;
+  }
+  body {
+    @apply bg-background text-foreground antialiased selection:text-white;
+    background-image: 
+      radial-gradient(at 0% 0%, oklch(0.3 0.2 285 / 10%) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, oklch(0.4 0.2 320 / 10%) 0px, transparent 50%);
+    min-height: 100vh;
+  }
+}
+
+@layer utilities {
+  .glass {
+    background-color: var(--card);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid oklch(1 0 0 / 10%);
+    box-shadow: 0 25px 50px -12px oklch(0 0 0 / 0.5);
+  }
+  
+  .glass-panel {
+    background-color: oklch(0.12 0.03 285 / 85%);
+    backdrop-filter: blur(32px);
+    -webkit-backdrop-filter: blur(32px);
+    border: 1px solid oklch(1 0 0 / 10%);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  }
+
+  .glass-card {
+    background-color: var(--card);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid oklch(1 0 0 / 10%);
+    box-shadow: 0 25px 50px -12px oklch(0 0 0 / 0.5);
+    border-radius: var(--radius);
+    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .glass-card:hover {
+    border-color: oklch(1 0 0 / 25%);
+    background-color: oklch(1 0 0 / 12%);
+    box-shadow: 0 0 30px oklch(0.65 0.22 285 / 15%);
+  }
+
+  .text-glow {
+    text-shadow: 0 0 20px oklch(0.65 0.22 285 / 50%);
+  }
+
+  .bg-grid-white {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgb(255 255 255 / 0.03)'%3E%3Cpath d='M0 .5H31.5V32'/%3E%3C/svg%3E");
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: var(--background);
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: oklch(1 0 0 / 10%);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: oklch(1 0 0 / 20%);
+  }
+}
+
+/* Animations */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.05); }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+/* Mobile Responsive Refinements */
+@media (max-width: 768px) {
+  :root {
+    --radius: 1rem;
+  }
+  
+  .glass, .glass-card {
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+}
