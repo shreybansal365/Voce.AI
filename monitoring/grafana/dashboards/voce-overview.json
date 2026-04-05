@@ -1,0 +1,83 @@
+{
+  "uid": "voce-overview",
+  "title": "Voce.AI - Overview",
+  "tags": ["voce", "prometheus"],
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "5s",
+  "panels": [
+    {
+      "type": "timeseries",
+      "title": "HTTP Requests / sec",
+      "gridPos": { "x": 0, "y": 0, "w": 12, "h": 8 },
+      "targets": [
+        {
+          "expr": "sum(rate(voce_http_requests_total[1m])) by (route)",
+          "legendFormat": "{{route}}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "HTTP p95 Latency (ms)",
+      "gridPos": { "x": 12, "y": 0, "w": 12, "h": 8 },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum(rate(voce_http_request_duration_ms_bucket[5m])) by (le, route))",
+          "legendFormat": "{{route}}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "AI Requests / sec",
+      "gridPos": { "x": 0, "y": 8, "w": 12, "h": 8 },
+      "targets": [
+        {
+          "expr": "sum(rate(voce_ai_requests_total[1m])) by (kind, status)",
+          "legendFormat": "{{kind}} / {{status}}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "AI p95 Latency (ms)",
+      "gridPos": { "x": 12, "y": 8, "w": 12, "h": 8 },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum(rate(voce_ai_latency_ms_bucket[5m])) by (le, kind, model))",
+          "legendFormat": "{{kind}} / {{model}}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "AI Tokens / sec",
+      "gridPos": { "x": 0, "y": 16, "w": 12, "h": 8 },
+      "targets": [
+        {
+          "expr": "sum(rate(voce_ai_tokens_total[5m])) by (kind, direction, model)",
+          "legendFormat": "{{kind}} {{direction}} / {{model}}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Estimated AI Cost (USD) / min",
+      "gridPos": { "x": 12, "y": 16, "w": 12, "h": 8 },
+      "targets": [
+        {
+          "expr": "sum(increase(voce_ai_estimated_cost_usd_total[1m])) by (kind, model)",
+          "legendFormat": "{{kind}} / {{model}}",
+          "refId": "A"
+        }
+      ]
+    }
+  ]
+}

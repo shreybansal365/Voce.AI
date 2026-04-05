@@ -1,0 +1,6 @@
+node_modules
+.next
+.git
+.handoff
+npm-debug.log
+README.md
