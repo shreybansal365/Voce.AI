@@ -1,51 +1,141 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Voce.AI
 
-## Getting Started
+Voce.AI is a two-way AI voice conversation platform built for interview practice, language learning, and topic-based discussion. It combines live conversational coaching with summary feedback, room-level usage tracking, and a full Scope A observability stack for demos using Prometheus, Grafana, Docker, and Kubernetes.
 
-Create your local env file first:
+## Core Features
+
+- Live AI voice discussion rooms with persona-based experts
+- AI-generated feedback summaries for completed sessions
+- Convex-backed room persistence and usage telemetry
+- Prometheus-style metrics exposed at `/api/metrics`
+- Grafana dashboard provisioning for request rate, latency, token usage, and estimated AI cost
+- Docker, Docker Compose, Kubernetes, and legacy shell monitoring support
+
+## Tech Stack
+
+- `Next.js 15` with App Router
+- `React 19`
+- `Tailwind CSS v4`
+- `Convex`
+- `Stack Auth`
+- `OpenRouter`
+- `Groq Whisper`
+- `ElevenLabs`
+
+## Environment Variables
+
+Create `.env.local` with the values your deployment needs:
 
 ```bash
-cp .env.example .env.local
+NEXT_PUBLIC_CONVEX_URL=
+OPENROUTER_API_KEY=
+OPENROUTER_MODEL=deepseek/deepseek-r1
+OPENROUTER_INPUT_COST_PER_MILLION=0
+OPENROUTER_OUTPUT_COST_PER_MILLION=0
+ASSEMBLY_API_KEY=
+GROQ_API_KEY=
+ELEVENLABS_API_KEY=
+ELEVENLABS_VOICE_ID=JBFqnCBsd6RMkjVDRZzb
+METRICS_BEARER_TOKEN=
 ```
 
-Set the required values in `.env.local`:
+`METRICS_BEARER_TOKEN` is optional but recommended for hosted deployments. If you set it, clients scraping `/api/metrics` must send `Authorization: Bearer <token>`.
 
-- `NEXT_PUBLIC_CONVEX_URL`
-- `OPENROUTER_API_KEY`
-- `OPENROUTER_MODEL` (optional, defaults to `deepseek/deepseek-r1`)
-- `ASSEMBLY_API_KEY`
-- `ELEVENLABS_API_KEY`
-- `ELEVENLABS_VOICE_ID` (optional override)
+## Local Development
 
-First, run the development server:
+Install dependencies and run the app:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Production Check
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This project builds successfully with:
 
-## Learn More
+```bash
+npm run build
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Observability
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### App Metrics
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Prometheus-compatible metrics are available at:
 
-## Deploy on Vercel
+```bash
+/api/metrics
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Tracked metrics include:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- HTTP request count
+- HTTP request latency histogram
+- AI request count
+- AI latency histogram
+- AI token consumption
+- Estimated AI cost
+- Process heap, RSS, and uptime gauges
+
+### Docker Compose
+
+For a local observability demo:
+
+```bash
+docker compose up --build
+```
+
+Services:
+
+- App: `http://localhost:3000`
+- Prometheus: `http://localhost:9090`
+- Grafana: `http://localhost:3002`
+
+Grafana default credentials:
+
+```bash
+admin / admin
+```
+
+### Kubernetes
+
+Kubernetes manifests live in [`k8s/`](./k8s). They deploy:
+
+- `voce-app`
+- `prometheus`
+- `grafana`
+
+Create the `voce-secrets` secret before applying manifests because secrets are intentionally not committed.
+
+### Legacy Monitoring Fallback
+
+For older systems without Prometheus/Grafana, use:
+
+```bash
+BASE_URL=http://localhost:3000 scripts/legacy_monitor.sh
+```
+
+This writes CSV telemetry into `./legacy-metrics/`.
+
+## Vercel Deployment Notes
+
+This app is ready for Vercel from the application side. Before deploying:
+
+1. Add the environment variables listed above in Vercel.
+2. Set `METRICS_BEARER_TOKEN` if `/api/metrics` should not be public.
+3. Keep in mind that Prometheus, Grafana, Docker Compose, and Kubernetes are infrastructure/demo assets and are not run by Vercel itself.
+
+For hosted monitoring after Vercel deployment, you have two good options:
+
+- Run Prometheus/Grafana externally and scrape your deployed `/api/metrics`
+- Use the legacy monitoring script against the deployed URL
+
+## Repository Notes
+
+- `.handoff/` stores the Universal Handoff Protocol context for AI session continuity.
+- Existing secrets are not written into repo files.
+- The current repo already has a remote configured; if creating a new private GitHub repo, use a separate remote so the original is preserved.
+

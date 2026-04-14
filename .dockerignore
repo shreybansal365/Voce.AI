@@ -1,0 +1,8 @@
+node_modules
+.next
+.git
+.handoff
+convex/_generated
+npm-debug.log
+README.md
+

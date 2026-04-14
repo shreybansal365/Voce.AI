@@ -1,116 +1,146 @@
 'use client';
 
 import Link from 'next/link';
+import { useUser } from "@stackframe/stack";
+import { Mic, Brain, BarChart3, ArrowRight, Sparkles, Globe, Shield } from 'lucide-react';
 
-// You can use a library like 'react-icons' for these, or SVGs
-const MicIcon = () => <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8"><path strokeLinecap="round" strokeLinejoin="round" d="M12 18.75a6 6 0 006-6v-1.5a6 6 0 00-12 0v1.5a6 6 0 006 6z" /><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z" /></svg>;
-const BrainIcon = () => <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8"><path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 01-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 013.09-3.09L12 5.25l2.846.813a4.5 4.5 0 013.09 3.09L21.75 12l-2.846.813a4.5 4.5 0 01-3.09 3.09z" /></svg>;
-const ChartIcon = () => <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8"><path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m1-3l1 3m0 0l.5 1.5m-.5-1.5L12 19.5M3.75 5.25h16.5" /></svg>;
+const FeatureCard = ({ icon: Icon, title, description }) => (
+  <div className="glass-card p-8 group hover:bg-white/[0.03] transition-all duration-500">
+    <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 border border-primary/20 group-hover:scale-110 transition-transform duration-500">
+      <Icon className="text-primary w-6 h-6" />
+    </div>
+    <h3 className="text-xl font-bold text-white mb-3 font-outfit tracking-tight">{title}</h3>
+    <p className="text-white/40 text-sm leading-relaxed">{description}</p>
+  </div>
+);
 
 export default function LandingPage() {
+  const user = useUser();
+
   return (
-    <div className="bg-slate-900 text-white">
+    <div className="min-h-screen bg-background text-white selection:bg-primary/30 font-inter overflow-x-hidden">
+      {/* Technical Background */}
+      <div className="fixed inset-0 bg-grid-white -z-10 opacity-20"></div>
+      <div className="fixed inset-0 bg-gradient-radial from-primary/10 via-background to-background -z-20"></div>
+
       {/* Header */}
-      <header className="absolute inset-x-0 top-0 z-50">
-        <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
-          <div className="flex lg:flex-1">
-            <a href="#" className="-m-1.5 p-1.5 text-xl font-bold tracking-tight">
-              Voce AI
-            </a>
+      <header className="sticky top-0 z-50 glass border-b border-white/5 px-6 lg:px-12 py-4 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+            <Sparkles className="text-white w-5 h-5" />
           </div>
-          <div className="lg:flex lg:flex-1 lg:justify-end">
-            {/* --- REMOVED AUTH CONDITIONAL, LINK IS NOW STATIC --- */}
-            <Link href="/dashboard" className="text-sm font-semibold leading-6">
-              Log in <span aria-hidden="true">&rarr;</span>
+          <span className="text-xl font-bold font-outfit tracking-tighter">Voce.AI</span>
+        </div>
+        
+        <div className="flex items-center gap-4">
+          {user ? (
+            <Link href="/dashboard" className="px-5 py-2 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-sm font-semibold transition-all flex items-center gap-2">
+              Dashboard <ArrowRight size={16} />
             </Link>
-          </div>
-        </nav>
+          ) : (
+            <Link href="/handler/sign-in" className="px-5 py-2 rounded-full bg-primary hover:bg-primary/80 text-sm font-bold transition-all shadow-lg shadow-primary/20">
+              Sign In
+            </Link>
+          )}
+        </div>
       </header>
 
       {/* Hero Section */}
-      <main className="relative isolate px-6 pt-14 lg:px-8">
-        <div className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
-          <div className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#8085ff] to-[#3389ff] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"></div>
-        </div>
+      <main className="relative pt-20 pb-32 px-6 overflow-hidden">
+        {/* Decorative Gradients */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-primary/20 blur-[120px] rounded-full -z-10 opacity-30"></div>
         
-        <div className="mx-auto max-w-3xl py-32 sm:py-48 lg:py-56">
-          <div className="text-center">
-            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
-              Master Any Skill, One Conversation at a Time
-            </h1>
-            <p className="mt-6 text-lg leading-8 text-gray-300">
-              Practice interviews, master a new language, or explore any topic through natural, spoken conversations. Our AI listens, responds, and gives you the feedback you need to excel.
-            </p>
-            <div className="mt-10 flex items-center justify-center gap-x-6">
-              <Link
-                href="/dashboard"
-                className="rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-              >
-                Start Your First Conversation
-              </Link>
+        <div className="max-w-5xl mx-auto text-center space-y-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-bold uppercase tracking-[0.2em] text-primary animate-in fade-in slide-in-from-bottom-4 duration-1000">
+                <Sparkles size={14} className="animate-pulse" />
+                The Future of Language Mastery
             </div>
-          </div>
+            
+            <h1 className="text-5xl md:text-8xl font-bold font-outfit tracking-tight leading-[1.1] animate-in fade-in slide-in-from-bottom-4 duration-700">
+                Master Any Skill through <br />
+                <span className="bg-gradient-to-r from-primary via-indigo-400 to-purple-500 bg-clip-text text-transparent">Spoken Intelligence.</span>
+            </h1>
+
+            <p className="max-w-2xl mx-auto text-lg text-white/40 font-medium leading-relaxed animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-200">
+                Engage in fluid, real-time conversations with specialized AI Experts. Practice interviews, learn languages, or explore complex topics with native-speed feedback.
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-10 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300">
+                <Link 
+                    href={user ? "/dashboard" : "/handler/sign-up"} 
+                    className="px-8 py-4 rounded-full bg-primary hover:bg-primary/80 text-lg font-bold transition-all shadow-2xl shadow-primary/30 flex items-center gap-3 active:scale-95 group"
+                >
+                    {user ? "Continue Journey" : "Start Session Free"}
+                    <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+                </Link>
+            </div>
+
+            {/* Platform Stats */}
+            <div className="pt-20 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
+                <div className="flex items-center gap-2 justify-center"><Globe size={20}/> <span className="text-sm font-bold tracking-widest uppercase">Global Edge</span></div>
+                <div className="flex items-center gap-2 justify-center"><Brain size={20}/> <span className="text-sm font-bold tracking-widest uppercase">Neural Core</span></div>
+                <div className="flex items-center gap-2 justify-center"><Shield size={20}/> <span className="text-sm font-bold tracking-widest uppercase">Secure Grid</span></div>
+                <div className="flex items-center gap-2 justify-center"><Sparkles size={20}/> <span className="text-sm font-bold tracking-widest uppercase">Zero Latency</span></div>
+            </div>
         </div>
       </main>
 
-      {/* How It Works Section */}
-      <section className="py-24 sm:py-32 bg-slate-800/50">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl lg:text-center">
-            <h2 className="text-base font-semibold leading-7 text-blue-400">HOW IT WORKS</h2>
-            <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              A simple path to improvement
-            </p>
-          </div>
-          <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
-            <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-3 lg:gap-y-16">
+      {/* Features Grid */}
+      <section id="features" className="py-32 px-6 relative">
+          <div className="max-w-7xl mx-auto">
+              <div className="mb-20 space-y-4">
+                  <h2 className="text-primary font-bold uppercase tracking-[0.3em] text-sm">Capabilities</h2>
+                  <h3 className="text-4xl md:text-5xl font-bold font-outfit">Built for High Performance.</h3>
+              </div>
               
-              <div className="relative pl-16">
-                <dt className="text-base font-semibold leading-7 text-white">
-                  <div className="absolute left-0 top-0 flex h-12 w-12 items-center justify-center rounded-lg bg-blue-600">
-                    <MicIcon />
-                  </div>
-                  1. Speak Naturally
-                </dt>
-                <dd className="mt-2 text-base leading-7 text-gray-300">
-                  Start a conversation just like you would with a person. Choose a topic, an interview scenario, or a language to practice.
-                </dd>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <FeatureCard 
+                    icon={Mic}
+                    title="Spoken Fluency"
+                    description="Real-time speech-to-text with word-level latency. Experience the fastest conversation cycle in educational AI."
+                  />
+                  <FeatureCard 
+                    icon={Brain}
+                    title="Deep Analytical Feedback"
+                    description="Get scored on Vocabulary, Grammar, and Fluency using our custom Speech-Analysis-Protocol."
+                  />
+                  <FeatureCard 
+                    icon={BarChart3}
+                    title="IELTS Calibration"
+                    description="Professional-grade evaluation metrics designed to mimic real-world academic and professional standards."
+                  />
               </div>
-
-              <div className="relative pl-16">
-                <dt className="text-base font-semibold leading-7 text-white">
-                  <div className="absolute left-0 top-0 flex h-12 w-12 items-center justify-center rounded-lg bg-blue-600">
-                    <BrainIcon />
-                  </div>
-                  2. Get Intelligent Responses
-                </dt>
-                <dd className="mt-2 text-base leading-7 text-gray-300">
-                  Our AI, powered by Gemini and ElevenLabs, engages in a fluid, human-like dialogue, understanding context and nuance.
-                </dd>
-              </div>
-
-              <div className="relative pl-16">
-                <dt className="text-base font-semibold leading-7 text-white">
-                  <div className="absolute left-0 top-0 flex h-12 w-12 items-center justify-center rounded-lg bg-blue-600">
-                    <ChartIcon />
-                  </div>
-                  3. Receive Detailed Feedback
-                </dt>
-                <dd className="mt-2 text-base leading-7 text-gray-300">
-                  After your session, get a full report on your performance—covering pronunciation, grammar, confidence, and content quality.
-                </dd>
-              </div>
-
-            </dl>
           </div>
+      </section>
+
+      {/* Security Section */}
+      <section id="security" className="py-20 border-t border-white/5">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+             <div className="glass-card p-12 md:p-20 relative overflow-hidden group">
+                <div className="absolute inset-0 bg-primary/5 group-hover:bg-primary/10 transition-colors duration-1000"></div>
+                <div className="relative z-10 space-y-6">
+                    <h2 className="text-3xl md:text-5xl font-bold font-outfit max-w-2xl mx-auto">Ready to break the barriers of traditional learning?</h2>
+                    <p className="text-white/40 max-w-lg mx-auto">Join the new standard of AI-driven voice coaching. No placeholders, no latency, just intelligence.</p>
+                    <Link 
+                        href="/handler/sign-up" 
+                        className="inline-flex items-center gap-2 px-10 py-4 rounded-full bg-white text-black font-bold hover:bg-white/90 transition-all active:scale-95"
+                    >
+                        Initialize Account <ArrowRight size={20}/>
+                    </Link>
+                </div>
+             </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-slate-900">
-        <div className="mx-auto max-w-7xl overflow-hidden px-6 py-12 lg:px-8">
-          <p className="text-center text-xs leading-5 text-gray-400">
-            &copy; 2025 Voce AI, Inc. All rights reserved.
+      <footer className="py-12 px-6 border-t border-white/5">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+          <div className="flex items-center gap-2">
+            <Sparkles className="text-primary w-5 h-5" />
+            <span className="text-lg font-bold font-outfit tracking-tighter">Voce.AI</span>
+          </div>
+          <p className="text-white/20 text-xs font-bold uppercase tracking-widest">
+            © 2026 Voce AI. The Future of Spoken Intelligence.
           </p>
         </div>
       </footer>

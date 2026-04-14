@@ -1,0 +1,12 @@
+apiVersion: 1
+
+providers:
+  - name: "voce"
+    orgId: 1
+    folder: "Voce.AI"
+    type: file
+    disableDeletion: true
+    editable: false
+    options:
+      path: /var/lib/grafana/dashboards
+

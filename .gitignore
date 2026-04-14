@@ -45,3 +45,4 @@ next-env.d.ts
 node_modules/
 
 convex/generated/
+!.handoff/

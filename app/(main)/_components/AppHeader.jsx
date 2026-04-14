@@ -1,24 +1,23 @@
 'use client';
 
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
+import { Sparkles } from "lucide-react";
 import { UserButton } from "@stackframe/stack";
 
 function AppHeader() {
     return (
-        <div className="p-3 shadow-sm flex justify-between items-center">
-            <Link href="/dashboard">
-                <Image
-                    src="/logo.svg"
-                    alt="Logo"
-                    width={50}
-                    height={50}
-                    className="cursor-pointer"
-                />
+        <div className="p-4 glass-card border-b border-white/5 flex justify-between items-center sticky top-0 z-50">
+            <Link href="/dashboard" className="flex items-center gap-2 group transition-all active:scale-95">
+                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center shadow-lg shadow-primary/20 group-hover:rotate-12 transition-transform">
+                    <Sparkles className="text-white w-5 h-5" />
+                </div>
+                <span className="text-xl font-bold font-outfit tracking-tighter text-white">Voce.AI</span>
             </Link>
 
-            <UserButton />
+            <div className="flex items-center gap-4">
+                <UserButton />
+            </div>
         </div>
     );
 }
