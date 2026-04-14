@@ -23,6 +23,7 @@ function DiscussionRoom() {
   const [messageQueue, setMessageQueue] = useState([]);
   const [enableFeedback, setEnableFeedback] = useState(false);
   const [isGeneratingReport, setIsGeneratingReport] = useState(false);
+  const [isHydrated, setIsHydrated] = useState(false);
 
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
@@ -31,11 +32,28 @@ function DiscussionRoom() {
   const UpdateUsageStats = useMutation(api.DiscussionRoom.UpdateUsageStats);
 
   useEffect(() => {
-    if (DiscussionRoomData) {
+    if (DiscussionRoomData && !isHydrated) {
       const Expert = CoachingExpert.find(item => item.name === DiscussionRoomData.expertName);
       setExpert(Expert);
+      
+      // Hydrate chat history from database if it exists
+      if (DiscussionRoomData.conversation) {
+        setChatHistory(DiscussionRoomData.conversation);
+      }
+      setIsHydrated(true);
     }
-  }, [DiscussionRoomData]);
+  }, [DiscussionRoomData, isHydrated]);
+
+  // Silently synchronize conversation to Convex whenever chat history grows
+  useEffect(() => {
+    if (isHydrated && DiscussionRoomData?._id && chatHistory.length > 0) {
+      // We only sync if the local history is newer than the saved history
+      const savedLength = DiscussionRoomData.conversation?.length || 0;
+      if (chatHistory.length > savedLength) {
+        UpdateConversation({ id: DiscussionRoomData._id, conversation: chatHistory });
+      }
+    }
+  }, [chatHistory, isHydrated, DiscussionRoomData]);
 
   const cleanText = (text) => {
     let cleaned = text.replace(/<\｜begin▁of▁sentence\｜>/g, "");
@@ -158,9 +176,7 @@ function DiscussionRoom() {
   };
 
   const finalizeSession = async () => {
-    if (DiscussionRoomData) {
-      await UpdateConversation({ id: DiscussionRoomData._id, conversation: chatHistory });
-    }
+    // Session is already continuously synced, just trigger the report view
     setEnableFeedback(true);
   };
 
@@ -198,7 +214,7 @@ function DiscussionRoom() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto -mt-6 h-[85vh] flex flex-col gap-6">
+    <div className="max-w-6xl mx-auto -mt-6 min-h-[85vh] flex flex-col gap-6 p-4 lg:p-0 mb-10">
       {/* Room Header */}
       <div className="flex justify-between items-center px-4">
         <div>

@@ -4,8 +4,7 @@
 Voce.AI is a high-fidelity, two-way AI voice conversational platform designed for academic and professional excellence. It pivots from generic AI assistants to specialized expert personas that engage in active dialogue, including Socratic questioning and high-stakes debating.
 
 ## Tech Stack
-- **Framework:** Next.js 15.5.4 (App Router)
-- **UI/Styling:** Tailwind CSS v4, Lucide Icons, Glassmorphism design system
+- **Frontend:** Next.js 16.x (App Router), Tailwind CSS v4, Lucide React icons, Glassmorphism design system
 - **Backend/Realtime:** Convex v1.27.5
 - **Authentication:** Stack Auth
 - **AI Models:** OpenRouter (google/gemini-2.0-flash-001, deepseek/deepseek-r1)
@@ -42,6 +41,7 @@ Voce.AI is a high-fidelity, two-way AI voice conversational platform designed fo
 - **Scaling Telemetry:** `DiscussionRoom` now also stores cumulative `usageStats` so each room can track request counts, estimated token volume, estimated spend, and last model used.
 - **Metrics Export:** The app exposes Prometheus-format telemetry at `/api/metrics`, with optional bearer-token protection via `METRICS_BEARER_TOKEN`.
 - **Dashboards:** Grafana is provisioned automatically with a Voce overview dashboard for request rate, latency, AI token flow, and estimated cost.
+- **Docker Notes:** The Dockerized Next app runs as a non-root user; the image ensures `/app/.next/cache` is writable to avoid runtime `EACCES` crashes. Docker Compose uses `.env.local` via `env_file` and maps the app to host port `3001`.
 
 ## Key Decisions
 - **[Two-Way Pivot]:** Removed passive features (Meditation) in favor of active engagement (Socratic Seminar/Debate Arena) to align with academic presentation requirements. — To emphasize interactive intelligence.
@@ -51,6 +51,7 @@ Voce.AI is a high-fidelity, two-way AI voice conversational platform designed fo
 - **[Room-Level Usage Tracking]:** AI usage is estimated at the Next.js API layer and persisted per discussion room in Convex. — Gives the team model-scaling visibility without changing the live conversational UX.
 - **[Zero-Dependency Metrics]:** Implemented the `/api/metrics` exporter without adding a Prometheus library dependency. — Avoids install/network blockers and keeps Vercel deployment simpler.
 - **[Optional Metrics Auth]:** Secured the metrics endpoint with an optional bearer token. — Prevents accidental public exposure of internal telemetry on hosted deployments like Vercel.
+- **[Non-Root Container Stability]:** Kept non-root runtime and explicitly fixed Next cache permissions. — Prevents intermittent runtime failures that surfaced as UI “Connection error”.
 
 ## How to Run
 ```bash
