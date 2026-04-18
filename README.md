@@ -1,81 +1,61 @@
 # 🎙️ Voce.AI
-### *The Neural Canvas for Spoken Intelligence*
-
-![Voce.AI Hero Mockup](./public/repo-assets/hero-mockup.png)
-
-[![Next.js 15](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
-[![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS-v4-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
-[![Convex Real-Time](https://img.shields.io/badge/Convex-Backend-FFBD51?style=for-the-badge)](https://www.convex.dev/)
-[![Observability](https://img.shields.io/badge/Stack-Observed-blue?style=for-the-badge)](http://localhost:3002)
-
-**Voce.AI** (pronounced */voʊs/*) is a premium conversational intelligence platform that transforms speech into growth. By synthesizing **Socratic Dialectics** with a high-fidelity **Lavender Glass** workspace, Voce.AI provides the ultimate immersive environment for perfecting human communication, interview mastery, and cognitive coaching.
+### *The Neural Interface for Spoken Intelligence*
 
 ---
 
-## ✨ The Experience
-
-### 🎭 Neural Persona Specialists
-Engage with a curated suite of AI experts. From **IELTS Examiners** to **Technical leads**, each persona utilizes the Socratic method of active questioning to probe depth of knowledge and elevate your spoken articulation.
-
-### 🧪 State-of-the-Art interaction
-Built on the **Lavender Glass** design paradigm, the interface utilizes the `oklch` color space for perceptual uniformity. Enjoy a high-fidelity, 32px backdrop-blur environment that feels alive, responsive, and professional.
-
-### 📊 Real-Time Cognitive Analytics
-Every session is powered by an AI feedback engine that generates structured, multi-dimensional assessments. Track your fluency, vocabulary, and pacing through a resilient data pipeline optimized for low-latency delivery.
+> **A visionary concept conceived and engineered by Shrey Bansal.**
+>
+> Voce.AI is not just a platform; it is a **Neural Canvas**. It is the absolute pinnacle of AI-driven conversational coaching, built to transform how humans interact with machine intelligence through the most natural medium possible: **The voice.**
 
 ---
 
-## 🏛️ Architectural Blueprint
-
-Voce.AI orchestrates a complex symphony of audio packets and neural inference to ensure near-zero latency in voice feedback loops.
-
-```mermaid
-graph TD
-    A[Neural Canvas - React 19] -->|Audio Stream| B[Groq Whisper - Transcription]
-    B -->|Text Packet| C[Neural Router - Next.js]
-    C -->|Contextual Prompt| D[OpenRouter - Intelligence]
-    D -->|AI Response| E[ElevenLabs - Vocal Synthesis]
-    E -->|Audio Output| A
-    C -->|Telemetry| F[Prometheus & Grafana]
-    C -->|Persistence| G[Convex Real-Time DB]
-```
+## 🏛️ The vision
+In a world of simple text-based chat, **Voce.AI** dares to be different. This project was born from the idea that intelligence should be felt, heard, and spoken. By synthesizing the **Socratic Method** with elite **Neural Audio Processing**, Voce.AI provides an immersive workspace for perfecting high-stakes communication, linguistic mastery, and cognitive depth.
 
 ---
 
-## 🛠️ Elite Technical Foundation
+## 🧪 Technical Mastery & Design Philosophy
 
-- **Framework**: [Next.js 15](https://nextjs.org/) (App Router) & [React 19](https://react.dev/)
-- **Style Engine**: [Tailwind CSS v4](https://tailwindcss.com/) with custom **Lavender Glass** utilities.
-- **Intelligence**: [OpenRouter](https://openrouter.ai/) for high-context LLM switching and [Groq](https://groq.com/) for instant transcription.
-- **Backend Architecture**: [Convex](https://www.convex.dev/) for real-time synchronization and high-performance persistence.
-- **Scope-A Observability**: Full [Prometheus](https://prometheus.io/) instrumentation and [Grafana](https://grafana.com/) visualization.
+### 💎 The Lavender Glass Paradigm
+Voce.AI features an "Untouchable" aesthetic known as **Lavender Glass**. 
+- **Color Space**: Engineered using `oklch` tokens for perceptual uniformity across all displays.
+- **Glassmorphism**: High-fidelity `.glass-panel` utilities featuring **32px backdrop-filters** and **15% rim-highlight rings**.
+- **Kinetic Engine**: Interface interactions powered by 300ms-400ms cubic-bezier transition curves, making the UI feel responsive, alive, and professional.
+
+### 🧠 The Intelligence Engine (Socratic Sychronization)
+- **Socratic Logic**: Each AI Persona is prompted to use dialectical questioning, challenging the user to think deeper and articulate more clearly.
+- **Neural Pipeline**: A high-speed orchestration of **Groq Whisper** (Transcription), **OpenRouter** (Intelligence), and **ElevenLabs** (Vocal Synthesis).
+- **Resilient Feedback**: A custom, decoupled telemetry architecture that ensures assessment delivery is 100% successful, even during complex metric syncs.
 
 ---
 
-## 🚀 Coronation (Deployment)
+## 📊 High-Fidelity Observability
+Voce.AI is built for production. It includes a full **Scope-A Observability Stack**:
+- **Real-Time Instrumentation**: Prometheus metrics for request rate, latency, and token consumption.
+- **Visual Intelligence**: A dedicated **Grafana** dashboard for tracking AI drift and estimated costs in real-time.
+- **Neural Persistence**: Powered by **Convex** for near-instant, real-time data synchronization.
 
-### 1. Configure the Neural Environment
-Satisfy the AI route handlers via `.env.local`:
+---
+
+## 🛠️ Deployment & Coronation
+
 ```bash
-NEXT_PUBLIC_CONVEX_URL= # Neural Persistence
-OPENROUTER_API_KEY=     # Intelligence Engine
-GROQ_API_KEY=           # Audio Processing
-ELEVENLABS_API_KEY=     # Vocal Synthesis
-```
+# 1. Initialize the Experience
+git clone https://github.com/shreybansal365/voce.ai.git
+cd voce.ai
+npm install
 
-### 2. Launch the Platform
-Push the platform and its observability stack live:
-```bash
+# 2. Configure the Neural Environment
+# Populate .env.local with Convex, OpenRouter, Groq, and ElevenLabs keys.
+
+# 3. Launch the Masterpiece
 docker compose up -d --build
 ```
-- **Voce.AI Interface**: `http://localhost:3000`
-- **Observability Hub**: `http://localhost:3002`
 
 ---
 
 ## 📜 Professional Governance
-
-Voce.AI is maintained with an elitist commitment to engineering excellence. Review our [CONTRIBUTING.md](./CONTRIBUTING.md) and [PORTFOLIO_GUIDE.md](./PORTFOLIO_GUIDE.md) for career-framing insights.
+Review the [CONTRIBUTING.md](./CONTRIBUTING.md) and [LICENSE](./LICENSE) for the standards of engineering excellence maintained in this repository.
 
 ---
 © 2026 Voce.AI. **Perfecting the Sound of Intelligence.**
