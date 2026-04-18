@@ -1,7 +1,7 @@
 {
-  "name": "ai",
-  "version": "0.1.0",
-  "private": true,
+  "name": "voce-ai-platform",
+  "version": "1.0.0",
+  "description": "A High-Fidelity, Neural-Audio Conversational Intelligence Platform.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
