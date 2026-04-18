@@ -97,10 +97,10 @@ function UserInputDialog({ children, ExpertList }) {
     <div>
       <Dialog open={openDialog} onOpenChange={setOpenDialog}>
         <DialogTrigger asChild>{children}</DialogTrigger>
-        <DialogContent className="glass-card border-white/5 bg-background/95">
+        <DialogContent className="glass-panel border-white/5 ring-1 ring-white/10">
             <DialogHeader>
-            <DialogTitle className="text-white font-outfit text-2xl">{ExpertList.name}</DialogTitle>
-            <p className='text-white/40 text-sm mt-2 leading-relaxed'>
+            <DialogTitle className="text-white font-outfit text-2xl font-bold tracking-tight">{ExpertList.name}</DialogTitle>
+            <p className='text-white/40 text-sm mt-2 leading-relaxed max-w-md'>
                 {ExpertList.description}
             </p>
             <DialogDescription asChild>
@@ -110,7 +110,7 @@ function UserInputDialog({ children, ExpertList }) {
                         <div className="relative group">
                             <Textarea 
                                 placeholder={`e.g. ${ExpertList.example}`} 
-                                className='mt-2 bg-white/5 border-white/10 text-white placeholder:text-white/20 rounded-2xl min-h-[100px] focus:border-primary/50 transition-all resize-none' 
+                                className='mt-2 bg-white/[0.05] border-white/10 text-white placeholder:text-white/20 rounded-2xl min-h-[100px] focus:border-primary/50 focus:bg-white/[0.08] transition-all resize-none' 
                                 onChange={(e) => setTopic(e.target.value)} 
                             />
                         </div>

@@ -6,6 +6,7 @@ import { useConvex } from 'convex/react';
 import Image from 'next/image';
 import React, { useContext, useEffect, useState } from 'react';
 import Link from 'next/link';
+import { ExpertList } from '@/services/Options';
 
 function History() {
 
@@ -44,18 +45,23 @@ function History() {
           <div key={index} className='glass-card p-4 group flex justify-between items-center hover:bg-white/[0.03] active:scale-[0.99] transition-all'>
             <div className='flex gap-5 items-center'>
               <div className="relative">
+                <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 <Image
-                    src={'/ab1.png'}
+                    src={ExpertList.find(e => e.name === item.coachingOptions)?.icon || '/ab1.png'}
                     alt='abs'
                     width={50}
                     height={50}
-                    className='rounded-2xl h-[50px] w-[50px] object-cover ring-1 ring-white/10'
+                    className='rounded-2xl h-[50px] w-[50px] object-contain relative z-10 p-1 group-hover:rotate-6 transition-transform'
                 />
-                <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-background"></div>
+                <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-[#0B0914] z-20"></div>
               </div>
-              <div>
-                <h2 className='font-bold text-white/90 group-hover:text-primary transition-colors'>{item.topic}</h2>
-                <h2 className='text-white/40 text-xs uppercase tracking-tighter font-medium'>{item.coachingOptions}</h2>
+                <div className="space-y-0.5">
+                <h2 className='font-bold text-white/90 group-hover:text-primary transition-colors text-lg tracking-tight'>{item.topic}</h2>
+                <div className="flex items-center gap-2">
+                   <h2 className='text-primary/70 text-[10px] uppercase tracking-widest font-black'>{item.coachingOptions}</h2>
+                   <span className="w-1 h-1 bg-white/10 rounded-full"></span>
+                   <h2 className="text-white/20 text-[10px] font-bold uppercase tracking-tighter">Session Archive</h2>
+                </div>
               </div>
             </div>
             

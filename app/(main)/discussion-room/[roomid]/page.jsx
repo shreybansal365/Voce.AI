@@ -108,11 +108,23 @@ function DiscussionRoom() {
         let aiReply = completion?.choices?.[0]?.message?.content || "No response from AI.";
         aiReply = cleanText(aiReply);
         setChatHistory(prev => [...prev, { sender: "ai", text: aiReply }]);
-        if (DiscussionRoomData?._id && completion?.usage) {
-          await UpdateUsageStats({ id: DiscussionRoomData._id, usage: completion.usage });
-        }
+        
+        // --- RESILIENCE PATCH: Prioritize Voice ---
+        // We speak BEFORE attempting the database update to ensure a smooth user experience.
         speakText(aiReply);
+
+        // --- RESILIENCE PATCH: Isolated Telemetry ---
+        // Database sync errors should NOT show "Connection error" bubbles to the user.
+        try {
+          if (DiscussionRoomData?._id && completion?.usage) {
+            await UpdateUsageStats({ id: DiscussionRoomData._id, usage: completion.usage });
+          }
+        } catch (telemetryError) {
+          console.error("Non-critical Telemetry Sync Failed:", telemetryError);
+          // We intentionally do NOT rethrow here to keep the conversation going.
+        }
       } catch (err) {
+        console.error("CRITICAL AI PROCESSING FAILURE:", err);
         setChatHistory(prev => [...prev, { sender: "ai", text: "⚠️ Connection error." }]);
       } finally {
         setMessageQueue(prev => prev.slice(1));
@@ -186,15 +198,30 @@ function DiscussionRoom() {
     try {
       const feedbackResponse = await AIModelFeedback(DiscussionRoomData.coachingOptions, chatHistory);
       const content = feedbackResponse?.analysis || feedbackResponse?.choices?.[0]?.message?.content;
+      
+      // Critical Path: Update the room summary
       await UpdateSummery({ id: DiscussionRoomData._id, summery: content });
-      if (feedbackResponse?.usage) {
-        await UpdateUsageStats({ id: DiscussionRoomData._id, usage: feedbackResponse.usage });
+      
+      // Isolated Telemetry: Usage stats should NOT block the user if they fail
+      try {
+        if (feedbackResponse?.usage) {
+          await UpdateUsageStats({ 
+            id: DiscussionRoomData._id, 
+            usage: {
+              ...feedbackResponse.usage,
+              model: feedbackResponse.model || feedbackResponse.usage.model || "unknown"
+            } 
+          });
+        }
+      } catch (usageStatsError) {
+        console.warn("Non-critical Usage Stats Sync Failed:", usageStatsError);
       }
       
       // Navigate directly to the newly generated report
       router.push('/view-summery/' + DiscussionRoomData._id);
     } catch (err) {
-      alert("failed to generate feedback.");
+      console.error("CRITICAL REPORT GENERATION FAILURE:", err);
+      alert("failed to generate feedback. Check console for details.");
       setIsGeneratingReport(false);
     }
   };

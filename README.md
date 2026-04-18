@@ -1,141 +1,70 @@
-# Voce.AI
+# 🎙️ Voce.AI
+### The Future of Spoken Intelligence
 
-Voce.AI is a two-way AI voice conversation platform built for interview practice, language learning, and topic-based discussion. It combines live conversational coaching with summary feedback, room-level usage tracking, and a full Scope A observability stack for demos using Prometheus, Grafana, Docker, and Kubernetes.
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
+[![Convex](https://img.shields.io/badge/Convex-Backend-FFBD51?style=for-the-badge)](https://www.convex.dev/)
 
-## Core Features
+**Voce.AI** (pronounced *vose dot ai*) is a premium, high-fidelity AI voice conversation platform designed for high-stakes interview practice, language immersion, and cognitive coaching. It moves beyond simple chat interfaces to create a deep, immersive "Neural Canvas" where speech is the primary input and intelligence is the result.
 
-- Live AI voice discussion rooms with persona-based experts
-- AI-generated feedback summaries for completed sessions
-- Convex-backed room persistence and usage telemetry
-- Prometheus-style metrics exposed at `/api/metrics`
-- Grafana dashboard provisioning for request rate, latency, token usage, and estimated AI cost
-- Docker, Docker Compose, Kubernetes, and legacy shell monitoring support
+---
 
-## Tech Stack
+## ✨ The Experience
 
-- `Next.js 15` with App Router
-- `React 19`
-- `Tailwind CSS v4`
-- `Convex`
-- `Stack Auth`
-- `OpenRouter`
-- `Groq Whisper`
-- `ElevenLabs`
+### 🎭 Socratic Dialogue & Persona Experts
+Engage with a curated list of AI specialists—from IELTS examiners to technical interviewers—who utilize the Socratic method of questioning to probe your knowledge and elevate your spoken articulation.
 
-## Environment Variables
+### 🧪 Lavender Glass Design System
+Voce.AI features a state-of-the-art **Lavender Glass** aesthetic. Built on `oklch` color tokens, it utilizes deep midnight purples and electric lavender accents with 32px backdrop-blur glassmorphism. The interface is meticulously designed to feel alive, responsive, and professional.
 
-Create `.env.local` with the values your deployment needs:
+### 📊 Real-Time Observability
+A full Scope-A observability stack is integrated directly into the platform. Monitor request rates, AI latency, token consumption, and estimated costs in real-time via a dedicated **Grafana** dashboard and **Prometheus** metrics.
+
+---
+
+## 🛠️ Technical Architecture
+
+- **Framwork**: [Next.js 15](https://nextjs.org/) (App Router) & [React 19](https://react.dev/)
+- **Style Engine**: [Tailwind CSS v4](https://tailwindcss.com/) with OKLCH dynamic tokens
+- **Intelligence**: [OpenRouter](https://openrouter.ai/) for high-context LLM switching
+- **Acoustics**: [Groq Whisper](https://groq.com/) for near-instant transcription & [ElevenLabs](https://elevenlabs.io/) for high-fidelity vocal synthesis
+- **Backend**: [Convex](https://www.convex.dev/) for real-time data synchronization and persistence
+- **Telemetry**: Prometheus + Grafana + Docker Compose
+
+---
+
+## 🚀 Quick Start
+
+### 1. Environment Configuration
+Create a `.env.local` file with your credentials:
 
 ```bash
 NEXT_PUBLIC_CONVEX_URL=
 OPENROUTER_API_KEY=
 OPENROUTER_MODEL=deepseek/deepseek-r1
-OPENROUTER_INPUT_COST_PER_MILLION=0
-OPENROUTER_OUTPUT_COST_PER_MILLION=0
-ASSEMBLY_API_KEY=
 GROQ_API_KEY=
 ELEVENLABS_API_KEY=
-ELEVENLABS_VOICE_ID=JBFqnCBsd6RMkjVDRZzb
 METRICS_BEARER_TOKEN=
 ```
 
-`METRICS_BEARER_TOKEN` is optional but recommended for hosted deployments. If you set it, clients scraping `/api/metrics` must send `Authorization: Bearer <token>`.
-
-## Local Development
-
-Install dependencies and run the app:
-
+### 2. Local Development
 ```bash
 npm install
 npm run dev
 ```
 
-Open `http://localhost:3000`.
-
-## Production Check
-
-This project builds successfully with:
-
-```bash
-npm run build
-```
-
-## Observability
-
-### App Metrics
-
-Prometheus-compatible metrics are available at:
-
-```bash
-/api/metrics
-```
-
-Tracked metrics include:
-
-- HTTP request count
-- HTTP request latency histogram
-- AI request count
-- AI latency histogram
-- AI token consumption
-- Estimated AI cost
-- Process heap, RSS, and uptime gauges
-
-### Docker Compose
-
-For a local observability demo:
-
+### 3. Observability Stack
+Launch the full containerized environment to access live metrics:
 ```bash
 docker compose up --build
 ```
+- **App**: `http://localhost:3000`
+- **Grafana**: `http://localhost:3002` (Login: `admin/admin`)
 
-Services:
+---
 
-- App: `http://localhost:3000`
-- Prometheus: `http://localhost:9090`
-- Grafana: `http://localhost:3002`
+## 📜 Repository Philosophy
+Voce.AI is designed for researchers, students, and professionals who demand an elite interface for AI interaction. The codebase is fully containerized, observed, and optimized for low-latency voice feedback loops.
 
-Grafana default credentials:
-
-```bash
-admin / admin
-```
-
-### Kubernetes
-
-Kubernetes manifests live in [`k8s/`](./k8s). They deploy:
-
-- `voce-app`
-- `prometheus`
-- `grafana`
-
-Create the `voce-secrets` secret before applying manifests because secrets are intentionally not committed.
-
-### Legacy Monitoring Fallback
-
-For older systems without Prometheus/Grafana, use:
-
-```bash
-BASE_URL=http://localhost:3000 scripts/legacy_monitor.sh
-```
-
-This writes CSV telemetry into `./legacy-metrics/`.
-
-## Vercel Deployment Notes
-
-This app is ready for Vercel from the application side. Before deploying:
-
-1. Add the environment variables listed above in Vercel.
-2. Set `METRICS_BEARER_TOKEN` if `/api/metrics` should not be public.
-3. Keep in mind that Prometheus, Grafana, Docker Compose, and Kubernetes are infrastructure/demo assets and are not run by Vercel itself.
-
-For hosted monitoring after Vercel deployment, you have two good options:
-
-- Run Prometheus/Grafana externally and scrape your deployed `/api/metrics`
-- Use the legacy monitoring script against the deployed URL
-
-## Repository Notes
-
-- `.handoff/` stores the Universal Handoff Protocol context for AI session continuity.
-- Existing secrets are not written into repo files.
-- The current repo already has a remote configured; if creating a new private GitHub repo, use a separate remote so the original is preserved.
-
+---
+© 2026 Voce.AI. Elevate your spoken intelligence.

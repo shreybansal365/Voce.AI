@@ -140,7 +140,7 @@ export default function LandingPage() {
             <span className="text-lg font-bold font-outfit tracking-tighter">Voce.AI</span>
           </div>
           <p className="text-white/20 text-xs font-bold uppercase tracking-widest">
-            © 2026 Voce AI. The Future of Spoken Intelligence.
+            © 2026 Voce.AI. The Future of Spoken Intelligence.
           </p>
         </div>
       </footer>

@@ -27,39 +27,39 @@
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
   
-  /* Custom Accent Colors */
-  --color-brand: oklch(0.6 0.25 285); /* Electric Indigo */
-  --color-brand-glow: oklch(0.6 0.25 285 / 15%);
+  /* Master Accent Colors */
+  --color-brand: oklch(0.65 0.22 285); /* Electric Lavender */
+  --color-brand-glow: oklch(0.65 0.22 285 / 15%);
 }
 
 :root {
-  --background: oklch(0.12 0.02 280); /* Deep Midnight */
-  --foreground: oklch(0.98 0.01 280);
+  --background: oklch(0.12 0.03 285); /* Deep Midnight Purple */
+  --foreground: oklch(0.98 0.01 285);
   
-  --card: oklch(0.16 0.03 280 / 80%);
-  --card-foreground: oklch(0.98 0.01 280);
+  --card: oklch(0.16 0.04 285 / 60%); 
+  --card-foreground: oklch(0.98 0.01 285);
   
-  --popover: oklch(0.16 0.03 280);
-  --popover-foreground: oklch(0.98 0.01 280);
+  --popover: oklch(0.14 0.04 285);
+  --popover-foreground: oklch(0.98 0.01 285);
   
-  --primary: oklch(0.6 0.25 285);
+  --primary: oklch(0.65 0.22 285); /* Electric Lavender */
   --primary-foreground: oklch(1 0 0);
   
-  --secondary: oklch(0.25 0.05 280);
-  --secondary-foreground: oklch(0.98 0.01 280);
+  --secondary: oklch(0.25 0.06 285);
+  --secondary-foreground: oklch(0.98 0.01 285);
   
-  --muted: oklch(0.2 0.04 280);
-  --muted-foreground: oklch(0.7 0.02 280);
+  --muted: oklch(0.2 0.05 285);
+  --muted-foreground: oklch(0.6 0.03 285);
   
-  --accent: oklch(0.3 0.1 285 / 50%);
-  --accent-foreground: oklch(0.98 0.01 280);
+  --accent: oklch(0.35 0.12 285 / 40%);
+  --accent-foreground: oklch(0.98 0.01 285);
   
   --destructive: oklch(0.55 0.2 25);
   --destructive-foreground: oklch(0.98 0.01 20);
   
-  --border: oklch(1 0 0 / 12%);
-  --input: oklch(1 0 0 / 8%);
-  --ring: oklch(0.6 0.25 285);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 6%);
+  --ring: oklch(0.65 0.22 285);
   
   --radius: 1.25rem;
 }
@@ -86,6 +86,14 @@
     box-shadow: 0 25px 50px -12px oklch(0 0 0 / 0.5);
   }
   
+  .glass-panel {
+    background-color: oklch(0.12 0.03 285 / 85%);
+    backdrop-filter: blur(32px);
+    -webkit-backdrop-filter: blur(32px);
+    border: 1px solid oklch(1 0 0 / 10%);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  }
+
   .glass-card {
     background-color: var(--card);
     backdrop-filter: blur(24px);
@@ -97,12 +105,13 @@
   }
 
   .glass-card:hover {
-    border-color: oklch(1 0 0 / 20%);
-    background-color: oklch(1 0 0 / 5%);
+    border-color: oklch(1 0 0 / 25%);
+    background-color: oklch(1 0 0 / 12%);
+    box-shadow: 0 0 30px oklch(0.65 0.22 285 / 15%);
   }
 
   .text-glow {
-    text-shadow: 0 0 15px oklch(0.6 0.25 285 / 40%);
+    text-shadow: 0 0 20px oklch(0.65 0.22 285 / 50%);
   }
 
   .bg-grid-white {

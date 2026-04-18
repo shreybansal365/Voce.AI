@@ -12,7 +12,7 @@ function AppHeader() {
                 <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center shadow-lg shadow-primary/20 group-hover:rotate-12 transition-transform">
                     <Sparkles className="text-white w-5 h-5" />
                 </div>
-                <span className="text-xl font-bold font-outfit tracking-tighter text-white">Voce.AI</span>
+                <span className="text-xl font-bold font-outfit tracking-tighter text-white text-glow">Voce.AI</span>
             </Link>
 
             <div className="flex items-center gap-4">
